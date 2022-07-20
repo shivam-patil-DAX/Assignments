@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<form method="post" action="../add_note_in_db/">
+    {% csrf_token %}
+    <ul class="form-style-1">
+        <li>
+            <h2><label>Title</h2> <span class="required">*</span></label>
+            <p><input type="text" name="note_title" class="field-divided" placeholder="Title" /></p>
+         </li>
+        <li>
+            <h2><label>Text </h2><span class="required">*</span></label>
+            <p><input type="text" name="text" class="field-long" /></p>
+        </li>
+       
+        <li>
+            <input type="submit" value="Submit" />
+        </li>
+    </ul>
+    </form>
+    <p style="float: right;">By default all Notes are to be done</p>
+{% endblock %}

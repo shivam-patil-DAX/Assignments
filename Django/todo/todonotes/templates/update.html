@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<form method="post" action="../../update_insert/">
+    {% csrf_token %}
+    {% for note in notes %}
+    <ul class="form-style-1">
+        <li>
+            <h2><label>ID</h2> <span class="required">*</span></label>
+            <p><input type="text" name="id" class="field-divided" value="{{ note.id }}" readonly/></p>
+         </li>
+        <li>
+            <h2><label>Title</h2> <span class="required">*</span></label>
+            <p><input type="text" name="note_title" class="field-divided" value="{{ note.note_title }}" /></p>
+         </li>
+
+        <li>
+            <h2><label>Text </h2><span class="required">*</span></label>
+            <p><input type="text" name="text" class="field-long" value="{{ note.text }}"/></p>
+        </li>
+       
+        <li>
+            <input type="submit" value="Submit" />
+        </li>
+    </ul>
+    {% endfor %}
+    </form>
+{% endblock %}

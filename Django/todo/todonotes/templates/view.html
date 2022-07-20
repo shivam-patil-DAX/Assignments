@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<header>
+    <h1><a href="/">Notes</a></h1>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <form method="post" action="../../serch/">
+                {% csrf_token %}
+                <ul class="form-style-1">
+                    <li>
+                        <h2><label>Serch Note</h2> </label>
+                        <p><input type="text" name="serch" class="field-divided" placeholder="NoteTitle or Text" /></p>
+                     </li>
+                   
+                    <li>
+                        <input type="submit" value="Submit" />
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div class="col-6">
+            <form method="post" action="../../type/">
+                {% csrf_token %}
+                <ul class="form-style-1">
+                    <li>
+                        <h2><label>Notes types</h2></label>
+                        <select name="type" class="field-select">
+                        <option value="0">All Notes</option>
+                        <option value="1">Task YET to done</option>
+                        <option value="2">Task DONE</option>
+                        </select>
+                    </li>
+                   
+                    <li>
+                        <input type="submit" value="Submit" />
+                    </li>
+                </ul>
+            
+            </form>
+        </div>
+    </div>
+</div>
+<hr>
+
+
+<main class="container">
+    <div class="row">
+        <div class="col">
+            {% for note in notes %}
+                <article class="post">
+                    <time class="date">
+                        {{ note.created_date }}
+                    </time>
+                    <h2><a href="">{{ note.note_title }}</a></h2>
+                    <p>{{ note.text|linebreaksbr }}</p>
+                    {% if note.is_done  %}
+                    <button><a href="{% url 'status_is_not_done' id=note.id %}" style="color:green;">Task is Done</a></button>
+                    {% else %}
+                    <button><a href="{% url 'status_is_done' id=note.id %}" style="color:red;">Task is remaining</a></button>
+                    {% endif %}
+                    <button><a href="{% url 'delete' id=note.id %}" >Delete</a></button>
+                    <button><a href="{% url 'update' id=note.id %}">Update</a></button>
+                </article>
+                <hr>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+<button class="button" onclick="window.location.href='add_note'"><span>Add Note </span></button>
+
+{% endblock %}
