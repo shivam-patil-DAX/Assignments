@@ -1,0 +1,17 @@
+select c.CustomerId,c.FirstName,c.LastName,c.City from customers as c where c.FirstName like 'N%' or c.City='Berlin';
+
+select t.TrackId,t.Name,t.Composer,t.UnitPrice from tracks as t where ( t.UnitPrice between 0.95 and 1.0 ) and t.Composer NOT LIKE '%t%';
+
+
+select i.InvoiceDate,sum(i.Total),avg(i.Total) from invoices as i where strftime('%m',i.InvoiceDate)=='07' and strftime('%Y',i.InvoiceDate)=='2012' group by (i.InvoiceDate);
+
+
+select t.TrackId,count(t.TrackId) from invoice_items as t group by(t.TrackId) order by count(t.TrackId) desc
+
+select ArtistId,Name from artists where ArtistId not in (select ArtistId from albums where ArtistId in (select AlbumId from Tracks where TrackId in (select TrackId from playlist_track)));
+
+
+Select distinct a.AlbumId,a.Title,count(p.PlaylistId) from Albums as a
+         inner join tracks as t on a.AlbumId=t.AlbumId
+         inner join  playlist_track as p on t.TrackId=p.TrackId  
+         group by (p.TrackId) Having count(p.PlaylistId)>=2 order by count(p.PlaylistId ) desc;
