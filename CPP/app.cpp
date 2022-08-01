@@ -57,7 +57,6 @@ vector<Myclass> obj;
 void displayVector(const std::vector<std::string> v)
 {
     int arrr[]={15,15,15,10,5,20,15,15,6};
-    map<int, string> data;
     for (int i(0); i != v.size(); ++i)
         {   
             string c="       ";
@@ -205,21 +204,32 @@ void csv(string arr[]){
 
 int main(int argc,  char **argv)
 {
-    
-    std::string charactersFilename(argv[2]);
-    std::vector<std::string> characters = readFileToVector(charactersFilename);
+    if(argv[1]=="--input_file")
+    {
+        cout<<"in here";
+        std::string charactersFilename(argv[2]);
+        if(charactersFilename!="\0")
+        {
+            
+            std::vector<std::string> characters = readFileToVector(charactersFilename);
 
-    displayVector(characters);
-     cout<<'\n'<<'\n'<<"Envlope"<<'\n'<<'\n';
-    for(int i=0;i<obj.size();i++){
-        envlope(obj[i].arr);
+            displayVector(characters);
+            cout<<'\n'<<'\n'<<"Envlope"<<'\n'<<'\n';
+            for(int i=0;i<obj.size();i++){
+                envlope(obj[i].arr);
+            }
+            cout<<'\n'<<'\n'<<"Fixed format"<<'\n'<<'\n';
+            for(int i=0;i<obj.size();i++){
+                fixed_format(obj[i].arr);
+            }
+            cout<<'\n'<<'\n'<<"CSV"<<'\n'<<'\n';
+            for(int i=0;i<obj.size();i++){
+                csv(obj[i].arr);
+            }
+        }
+        else{
+        cout<<"Enter right file location / File location not provided";
+        }
     }
-    cout<<'\n'<<'\n'<<"Fixed format"<<'\n'<<'\n';
-    for(int i=0;i<obj.size();i++){
-        fixed_format(obj[i].arr);
-    }
-    cout<<'\n'<<'\n'<<"CSV"<<'\n'<<'\n';
-    for(int i=0;i<obj.size();i++){
-        csv(obj[i].arr);
-    }
+    
 }
